@@ -14,11 +14,11 @@ A_S(\mathbf{r}) = \sum_{j} m_j \frac{A_j}{\rho_j} W(\mathbf{r} - \mathbf{r}_j, h
 \end{equation}
  $$
     $$ \begin{equation}
-\nabla A_S(\mathbf{r}) = \sum_{j} m_j \frac{A_j}{\rho_j} \nabla W(\mathbf{r} - \mathbf{r}_j, h), \tag{1}
+\nabla A_S(\mathbf{r}) = \sum_{j} m_j \frac{A_j}{\rho_j} \nabla W(\mathbf{r} - \mathbf{r}_j, h), \tag{4}
 \end{equation}
  $$
     $$ \begin{equation}
-\nabla^2 A_S(\mathbf{r}) = \sum_{j} m_j \frac{A_j}{\rho_j} \nabla^2 W(\mathbf{r} - \mathbf{r}_j, h), \tag{1}
+\nabla^2 A_S(\mathbf{r}) = \sum_{j} m_j \frac{A_j}{\rho_j} \nabla^2 W(\mathbf{r} - \mathbf{r}_j, h), \tag{5}
 \end{equation}
  $$
     $$ \begin{equation}
@@ -30,6 +30,9 @@ W_{\text{poly6}}(\mathbf{r}, h) = \frac{315}{64\pi h^9}
 \tag{20}
 \end{equation}
  $$
+ $$ \nabla W_{viscosity}(\textbf{r}, h) =  $$
+ $$ \nabla^2 W(\textbf{r}, h) = \frac{45}{\pi h^6} $$
+ $$ \frac{dv}{dt} = -\frac{1}{\rho} \nabla p + k\nabla^2 v + frac{F^{other}}{m} $$
 
   </main>
 </body>
