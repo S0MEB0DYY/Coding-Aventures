@@ -14,6 +14,14 @@ A_S(\mathbf{r}) = \sum_{j} m_j \frac{A_j}{\rho_j} W(\mathbf{r} - \mathbf{r}_j, h
 \end{equation}
  $$
     $$ \begin{equation}
+\nabla A_S(\mathbf{r}) = \sum_{j} m_j \frac{A_j}{\rho_j} \nabla W(\mathbf{r} - \mathbf{r}_j, h), \tag{1}
+\end{equation}
+ $$
+    $$ \begin{equation}
+\nabla^2 A_S(\mathbf{r}) = \sum_{j} m_j \frac{A_j}{\rho_j} \nabla^2 W(\mathbf{r} - \mathbf{r}_j, h), \tag{1}
+\end{equation}
+ $$
+    $$ \begin{equation}
 W_{\text{poly6}}(\mathbf{r}, h) = \frac{315}{64\pi h^9} 
 \begin{cases} 
   (h^2 - r^2)^3 & 0 \leq r \leq h \\ 
