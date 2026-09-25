@@ -1,5 +1,6 @@
 import numpy
 import nnfs
+from layer import Layer
 
 nnfs.init()
 
