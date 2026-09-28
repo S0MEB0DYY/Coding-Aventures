@@ -3,6 +3,9 @@ import numpy as np
 class ActivationReLU:
   def forward(self, inputs):
     self.output = np.maximum(0, inputs)
+  def back(self, dvalues):
+    dinputs = dvalues.copy()
+
 class ActivationSoftmax:
   def forward(self, inputs):
     expValues = np.exp(inputs - np.max(inputs, axis=1, keepdims=True))
