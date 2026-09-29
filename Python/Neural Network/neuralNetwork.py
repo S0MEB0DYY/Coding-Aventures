@@ -13,21 +13,26 @@ X = [[0.5, 3.49, 0.21, 2],
 y = [0, 1, 1]
 
 layer1 = Layer(4, 5)
-layer1.forward(X)
 activation1 = ActivationReLU()
-activation1.forward(layer1.output)
 
 layer2 = Layer(5, 5)
-layer2.forward(activation1.output)
 activation2 = ActivationReLU()
-activation2.forward(layer2.output)
 
 layer3 = Layer(5, 4)
-layer3.forward(activation2.output)
-activation3 = ActivationSoftmax()
-activation3.forward(layer3.output)
+activation3 = SoftmaxLoss()
 
-lossFunction = LossFunction()
-loss = lossFunction.calculate(activation3.output, y)
+for _ in range(10000):
+     layer1.forward(X)
+     activation1.forward(layer1.output)
+     layer2.forward(activation1.output)
+     activation2.forward(layer2.output)
+     layer3.forward(activation2.output)
+     loss = activation3.forward(layer3.output, y)
 
-print("Loss: ", loss)
+     print(loss)
+     activation3.back(activation3.output, y)
+     layer3.back(activation3.output)
+     activation2.back(layer3.output)
+     layer2.back(activation2.output)
+     activation1.back(layer2.output)
+     layer1.back(activation1.output)
