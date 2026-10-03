@@ -1,0 +1,40 @@
+#pragma kernel CSMain
+
+RWTexture2D<float4> Result;
+
+struct Ray {
+  float3 origin;
+  float3 direction;
+}
+
+struct Material {
+  float4 Albedo = float4(1.0, 1.0, 1.0, 1.0);
+  float Roughness = 0.0;
+  float Metallic = 0.0;
+}
+
+struct Sphere {
+  float Radius = 0.5;
+
+  Material Mat;
+}
+
+[numthreads(8, 8, 1)]
+void CSMain (uint3 id : SV_DispatchThreadID) {
+  uint width, height;
+  Result.GetDimensions(width, height);
+
+  float2 uv = float2((id.xy + 0.5) / float2(width, height)) * 2.0 - 1.0;
+  uv.x *= (float)width / (float)height;
+
+  Ray ray;
+  ray.origin = float3(0.0, 0.0, -2.0);
+  ray.direction = float3(uv, -1.0);
+
+  Sphere sphere;
+  sphere.Radius = 0.5;
+  sphere.Mat.Albedo = float4(1.0, 0.0, 1.0, 1.0);
+
+  float t;
+  float4 color = float4(0.0, 0.0, 0.0, 1.0);
+}
