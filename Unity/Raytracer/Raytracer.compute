@@ -14,9 +14,19 @@ struct Material {
 }
 
 struct Sphere {
-  float Radius = 0.5;
+  float radius = 0.5;
+  float3 position = float3(0.0, 0.0, 0.0);
 
   Material Mat;
+}
+
+struct Light {
+  float3 direction = float4(0.0, 0.0, 0.0);
+}
+
+struct HitInfo {
+  bool didHit;
+  float hitPosition;
 }
 
 [numthreads(8, 8, 1)]
@@ -32,9 +42,32 @@ void CSMain (uint3 id : SV_DispatchThreadID) {
   ray.direction = float3(uv, -1.0);
 
   Sphere sphere;
-  sphere.Radius = 0.5;
+  sphere.radius = 0.5;
   sphere.Mat.Albedo = float4(1.0, 0.0, 1.0, 1.0);
+
+  Light light;
+  light.direction = normalize(float3(-1.0, -1.0, 1.0));
 
   float t;
   float4 color = float4(0.0, 0.0, 0.0, 1.0);
+
+  float a = dot(ray.direction, ray.direction);
+  float b = 2.0 * dot(ray.origin - sphere.position, ray.direction);
+  float c = dot(ray.origin - sphere.position, ray.origin - sphere.position) - sphere.radius * sphere.radius;
+  float discriminant = b * b - 4 * a * c;
+
+  HitInfo info;
+  info.didHit = (discriminant < 0) ? false : true;
+
+  if (info.didHit) {
+    info.hitPosition = -b - sqrt(discriminant) / 2.0 * a;
+    normal = normalize(info.hitPosition - sphere.position);
+
+    intensity = max(0.0, dot(normal, -light.direction));
+    color = sphere.Mat.Albedo * intensity;
+    Result[id.xy] = color;
+  }
+  else {
+    Result[id.xy] = float4(0.0, 0.0, 0.0, 1.0);
+  }
 }
